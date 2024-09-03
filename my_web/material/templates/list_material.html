@@ -1,0 +1,39 @@
+{% extends "master.html" %}
+
+{% block title %}
+  Material List
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+
+    <h1>Material List</h1>
+    <a href="{% url 'add_material' %}">Add New Material</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                {% if user.is_authenticated %}
+                    <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for material in object_list %}
+            <tr>
+                <td><a href="#">{{ material.nazev }}</a></td>
+                <td>{{ material.cena }}</td>
+                {% if user.is_authenticated %}
+                    <td><a href="{% url 'edit_material' material.pk %}">Edit</a></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

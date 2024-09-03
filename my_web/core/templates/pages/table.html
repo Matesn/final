@@ -1,0 +1,34 @@
+{% extends "master.html" %}
+
+{% block title %}
+  Seznam produktů
+{% endblock %}
+
+{% block content %}
+<h1>Seznam produktů</h1>
+
+
+<table border="1" cellpadding="10">
+    <thead>
+        <tr>
+            <th>Název</th>
+            <th>Cena</th>
+            <th>Sklad</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.nazev }}</td>
+            <td>{{ product.cena }}</td>
+            <td>{{ product.sklad }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Žádné produkty k zobrazení.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

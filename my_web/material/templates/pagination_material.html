@@ -1,0 +1,53 @@
+{% extends "master.html" %}
+
+{% block title %}
+  BookList
+{% endblock %}
+
+{% block content %}
+<table>
+        <thead>
+            <tr>
+                <th>Nazev</th>
+                <th>Cena</th>
+                {% if user.is_authenticated %}
+                    <th>Kusu</th>
+                {% endif %}
+            </tr>
+        </thead>
+<h1>Material List </h1>
+    <tbody>
+            {% for material in object_list %}
+            <tr>
+                <td><a href="#">{{ material.nazev }}</a></td>
+                <td>{{ material.cena }}</td>
+                <td>{{ material.sklad }}</td>
+                {% if user.is_authenticated %}
+                    <td><a href="{% url 'edit_material' material.pk %}">Edit</a></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Pagination controls -->
+    {% if is_paginated %}
+  <div class="pagination">
+    <span class="step-links">
+      {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; prva</a>
+        <a href="?page={{ page_obj.previous_page_number }}">predošla</a>
+      {% endif %}
+
+      <span class="current">
+        Stránka {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}.
+      </span>
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">dalsia</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">posledna &raquo;</a>
+      {% endif %}
+    </span>
+  </div>
+{% endif %}
+{% endblock %}

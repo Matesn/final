@@ -1,0 +1,15 @@
+{% extends "master.html" %}
+
+{% block title %}
+  Edit Material
+{% endblock %}
+
+{% block content %}
+    <h1>Edit Material</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save changes</button>
+    </form>
+    <a href="{% url 'list_material' %}">Back to list</a>
+{% endblock %}
